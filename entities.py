@@ -114,8 +114,10 @@ class Server(object):
         sender = self.userList[fd]
         message = sender.nick + ": " + payload
         messageToSend = bytes("{}".format(message),"utf-8")
-        for fd in userList:
-            sent = self.userList[fd].sock.send(messageToSend)
+        sent=0
+        for fd_sending in userList:
+            if fd_sending != fd:
+                sent = self.userList[fd_sending].sock.send(messageToSend)
         return sent
 
     def do_leave():
