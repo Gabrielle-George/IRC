@@ -20,13 +20,15 @@ def readInput(s):
         if usrMsg[0]!="/":
             #they are just typing into whatever chat window they had last
             #TODO: have the client keep track of this
-            if curRoom != "":
+            if curRoom != "": #curRoom is None?
                 s.sendall(bytes("{} {} {}\r\n".format('ROOMMSG', curRoom, usrMsg),"utf-8"))
-            else:
-                s.sendall(bytes("{} {}\r\n".format('DEFAULT', usrMsg),"utf-8"))
+            # else:
+            #     s.sendall(bytes("{} {}\r\n".format('DEFAULT', usrMsg),"utf-8"))
         else:
+            print('usgmsg in else', usrMsg)
             #we have a command, parse it!
             cmd, payload = parse(usrMsg)
+            print('cmd is:', cmd, 'payload is', payload)
             if cmd == cmds.joinUSR:
                 s.sendall(bytes("{} {}\r\n".format(cmds.JOINROOM,payload),"utf-8"))
                 curRoom = payload.split()[0]
@@ -34,12 +36,11 @@ def readInput(s):
                 #TODO: send disconnect request to server.
                 G_quit =True
             if cmd in IRCcommands.messagetypes:
-                args = None
-                splitmsg = usrMsg.split()
-                withoutfirst = splitmsg[1:]
-                if len(withoutfirst) > 1:
-                    args = withoutfirst
-                s.sendall(bytes("SERVERFUNCTION {}, body {} \r\n".format(cmd, args),"utf-8"))
+                print('cmd is in here', cmd)
+                args = payload
+                msg = "{} {} \r\n".format(cmd, args)
+                print("msg is ", msg)
+                s.sendall(bytes(msg.strip(),"utf-8"))
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))
 
