@@ -1,6 +1,6 @@
 #used for client parsing.  Maybe it will be useful for server parsing, too
 class IRCcommands(object):
-	messagetypes = ['/joinroom', '/leaveroom', '/listrooms' ]
+	messagetypes = ['/join', '/leaveroom', '/listrooms', 'LEAVE', 'ROOMMSG', '/listroomppl' ]
 
 	def __init__(self):
 		# what the server reads.  Every message needs to
@@ -10,6 +10,7 @@ class IRCcommands(object):
 		self.LEAVE = "LEAVE"
 		self.DEFAULT = "DEFAULT" #TODO: for developing		
 		self.MSGROOM = "ROOMMSG" #followed by roomname and then the entire message
+		self.LISTROOMPPL = "/listroomppl" #followed by roomname #this doesn't work
 
 		#what the user types
 		self.joinUSR = "/join" #connects them to the server??
