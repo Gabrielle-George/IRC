@@ -26,6 +26,7 @@
 
 /leaveroom [roomname]
 /joinroom [roomname]
+/listroomppl [chatroom name]
 /listrooms
 
 # Todo
