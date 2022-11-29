@@ -41,7 +41,7 @@ class Server(object):
         if parsedType == self.cmds.MSGROOM:
             self.do_messageRoom(payload,fd)
         if parsedType == self.cmds.LISTROOMPPL:
-            print('in listroomppl')
+            print('@ listroomppl')
             self.do_listRmPpl(payload, fd, self.roomList) #what does this need to do its job
 
     def service_connection(self,key, mask):
@@ -87,15 +87,18 @@ class Server(object):
             
     def do_listRmPpl(self, payload, fd, roomList):
         print("do_listRmPpl")
-        print('payload is', payload)
-        #prints userlist of room
-        #how should we check if rooms exist
-        # if roomName is not None:
-        #     print("Printing list of room {roomName}".format(room))
+        if payload not in roomList:
+            print('no room name specified or room could not be located in roomlist')
+            return False
+        else:
+            codedUserList = roomList[payload].userList
+            if len(codedUserList) > 0:
+                print("userlist by id name", codedUserList)
+                return True
+            else:
+                print('userlist is empty')
+                return True
             
-        # else:
-        #     print("Room {roomName} does not exist")
-    
     """
     create a new room object, add it to the room list
     """
