@@ -1,3 +1,4 @@
+#*The final branch for this is Main2*
 # List Of Resources
 
 ## IRC
@@ -29,6 +30,3 @@
 /listroomppl [chatroom name]
 /listrooms
 
-# Todo
-- Create usernames
-- 
